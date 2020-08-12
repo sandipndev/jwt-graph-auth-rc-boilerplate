@@ -1,7 +1,41 @@
-import React from "react";
+import React, { useState } from "react";
+import { useRegisterMutation } from "../generated/graphql";
 
 function Register() {
-  return <div>Register</div>;
+  const [email, setEmail] = useState("");
+  const [password, setPassword] = useState("");
+  const [register] = useRegisterMutation();
+
+  return (
+    <form
+      onSubmit={async (e) => {
+        e.preventDefault();
+        const response = await register({
+          variables: { email: email, password: password },
+        });
+        console.log(response);
+      }}
+    >
+      <div>Register</div>
+      <div>
+        <input
+          type="email"
+          value={email}
+          placeholder="Email"
+          onChange={(e) => setEmail(e.target.value)}
+        />
+      </div>
+      <div>
+        <input
+          type="password"
+          value={password}
+          placeholder="Password"
+          onChange={(e) => setPassword(e.target.value)}
+        />
+      </div>
+      <button type="submit">Register</button>
+    </form>
+  );
 }
 
 export default Register;

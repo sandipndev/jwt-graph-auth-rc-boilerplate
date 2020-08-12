@@ -1,9 +1,19 @@
-import React from "react";
+import React, { useState, useEffect } from "react";
+
+import getNewToken from "./tokens";
 
 import Routes from "./Routes";
 
 function App() {
-  return <Routes />;
+  const [loading, setLoading] = useState(true);
+
+  useEffect(() => {
+    getNewToken().then(() => {
+      setLoading(false);
+    });
+  }, [setLoading]);
+
+  return loading ? <>Loading...</> : <Routes />;
 }
 
 export default App;

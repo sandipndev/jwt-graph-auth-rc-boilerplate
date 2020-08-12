@@ -14,12 +14,14 @@ interface RoutesProps {
 }
 
 function Routes({ loggedIn }: RoutesProps) {
-  return (
+  return loggedIn ? (
+    <Dashboard />
+  ) : (
     <BrowserRouter>
       <Switch>
         <Route path="/login" component={Login} />
         <Route path="/register" component={Register} />
-        <Route path="/" component={loggedIn ? Dashboard : Landing} />
+        <Route path="/" component={Landing} />
       </Switch>
     </BrowserRouter>
   );
