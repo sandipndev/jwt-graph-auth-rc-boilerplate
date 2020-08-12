@@ -8,6 +8,7 @@ import Landing from "./pages/Landing";
 import Login from "./pages/Login";
 import Register from "./pages/Register";
 import Dashboard from "./pages/Dashboard";
+import EmailVerification from "./pages/EmailVerification";
 
 interface RoutesProps {
   loggedIn: boolean;
@@ -15,10 +16,16 @@ interface RoutesProps {
 
 function Routes({ loggedIn }: RoutesProps) {
   return loggedIn ? (
-    <Dashboard />
+    <BrowserRouter>
+      <Switch>
+        <Route path="/verify/:token" component={EmailVerification} />
+        <Route path="/" component={Dashboard} />
+      </Switch>
+    </BrowserRouter>
   ) : (
     <BrowserRouter>
       <Switch>
+        <Route path="/verify/:token" component={EmailVerification} />
         <Route path="/login" component={Login} />
         <Route path="/register" component={Register} />
         <Route path="/" component={Landing} />
